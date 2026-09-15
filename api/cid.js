@@ -203,6 +203,9 @@ module.exports = async (req, res) => {
     return res.status(500).json({
       success: false,
       errorMessage: err.message
+      errorCause: err.cause ? String(err.cause) : null,      // 新增
+      errorCode: err.cause?.code || err.code || null,         // 新增
+      errorStack: err.stack                                   // 新增（调试完可删）
     });
   }
 };
