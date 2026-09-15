@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "functions": {
+    "api/cid.js": {
+      "maxDuration": 30,
+      "memory": 256
+    }
+  },
+  "rewrites": [
+    { "source": "/api/cid", "destination": "/api/cid.js" }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "vercel-cid-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "fast-xml-parser": "^4.4.1"
+  }
+}
