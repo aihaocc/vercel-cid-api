@@ -66,17 +66,24 @@ function buildRequestXml(installationId, advancedPid) {
 
 // ============ 发送到微软 ============
 async function callBatchActivation(fullXml) {
-  const res = await fetch(BATCH_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'text/xml; charset=utf-8',
-      SOAPAction: SOAP_ACTION,
-      'User-Agent': USER_AGENT
-    },
-    body: fullXml
-  });
-  const text = await res.text();
-  return { status: res.status, body: text };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 25000); // 25s 超时
+  try {
+    const res = await fetch(BATCH_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/xml; charset=utf-8',
+        SOAPAction: SOAP_ACTION,
+        'User-Agent': USER_AGENT
+      },
+      body: fullXml,
+      signal: controller.signal
+    });
+    const text = await res.text();
+    return { status: res.status, body: text };
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 // ============ 解析 SOAP 响应，提取 CID / ErrorCode ============
