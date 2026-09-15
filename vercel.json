@@ -6,7 +6,5 @@
       "memory": 256
     }
   },
-  "rewrites": [
-    { "source": "/api/cid", "destination": "/api/cid.js" }
-  ]
+  "regions": ["iad1"]
 }
